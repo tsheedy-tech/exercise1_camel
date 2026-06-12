@@ -11,17 +11,9 @@ public class HelloRoute extends RouteBuilder {
     @Override
     public void configure() {
         from("direct:hello")
-//                .process(new Processor() {
-//                    @Override
-//                    public void process(Exchange exchange) throws Exception {
-//                        Person person = exchange.getIn().getBody(Person.class);
-//                        Response response = new Response(person.getName());
-//                        exchange.getIn().setBody(response);
-//                    }
-//                });
-        .setBody(exchange -> {
-            Person person = exchange.getIn().getBody(Person.class);
-            return new Response(person.getName());
-        });
+                .setBody(exchange -> {
+                    Person person = (Person) exchange.getIn().getBody();
+                    return new Response(person.getName());
+                });
     }
 }
